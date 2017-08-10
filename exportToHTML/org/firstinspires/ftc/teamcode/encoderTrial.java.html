@@ -1,0 +1,106 @@
+<html>
+<head>
+<title>encoderTrial.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(204,120,50); }
+.s1 { color: rgb(169,183,198); }
+.s2 { color: rgb(98,151,85); font-style: italic; }
+.s3 { color: rgb(106,135,89); }
+.s4 { color: rgb(128,128,128); }
+.s5 { color: rgb(104,151,187); }
+</style>
+</head>
+<BODY BGCOLOR="#2b2b2b">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+encoderTrial.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">org.firstinspires.ftc.teamcode</span><span class="s0">;</span><span class="s1"> 
+ 
+</span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.Autonomous</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.Disabled</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.eventloop.opmode.LinearOpMode</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.hardware.DcMotor</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.hardware.DcMotorController</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">com.qualcomm.robotcore.util.ElapsedTime</span><span class="s0">;</span><span class="s1"> 
+ 
+</span><span class="s2">/** 
+ * This file contains an minimal example of a Linear &quot;OpMode&quot;. An OpMode is a 'program' that runs in either 
+ * the autonomous or the teleop period of an FTC match. The names of OpModes appear on the menu 
+ * of the FTC Driver Station. When an selection is made from the menu, the corresponding OpMode 
+ * class is instantiated on the Robot Controller and executed. 
+ * 
+ * This particular OpMode just executes a basic Tank Drive Teleop for a PushBot 
+ * It includes all the skeletal structure that all linear OpModes contain. 
+ * 
+ * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name. 
+ * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list 
+ */</span><span class="s1"> 
+ 
+@Autonomous(name=</span><span class="s3">&quot;Encoder Trial&quot;</span><span class="s0">, </span><span class="s1">group=</span><span class="s3">&quot;Linear Opmode&quot;</span><span class="s1">)  </span><span class="s4">// @Autonomous(...) is the other common choice</span><span class="s1"> 
+</span><span class="s4">//@Disabled</span><span class="s1"> 
+</span><span class="s0">public class </span><span class="s1">encoderTrial </span><span class="s0">extends </span><span class="s1">LinearOpMode { 
+ 
+ 
+ 
+    </span><span class="s0">private </span><span class="s1">ElapsedTime runtime = </span><span class="s0">new </span><span class="s1">ElapsedTime()</span><span class="s0">;</span><span class="s1"> 
+ 
+        DcMotor leftmotor</span><span class="s0">;</span><span class="s1"> 
+        DcMotor rightmotor</span><span class="s0">;</span><span class="s1"> 
+ 
+    </span><span class="s0">public void </span><span class="s1">encReset() { 
+        leftmotor.setMode(DcMotor.RunMode.RESET_ENCODERS)</span><span class="s0">;</span><span class="s1"> 
+        rightmotor.setMode(DcMotor.RunMode.RESET_ENCODERS)</span><span class="s0">;</span><span class="s1"> 
+        leftmotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER)</span><span class="s0">;</span><span class="s1"> 
+        rightmotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER)</span><span class="s0">;</span><span class="s1"> 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public void </span><span class="s1">runOpMode() </span><span class="s0">throws </span><span class="s1">InterruptedException { 
+ 
+        telemetry.addData(</span><span class="s3">&quot;Status&quot;</span><span class="s0">, </span><span class="s3">&quot;Initialized&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        telemetry.update()</span><span class="s0">;</span><span class="s1"> 
+ 
+        leftmotor = hardwareMap.dcMotor.get(</span><span class="s3">&quot;leftmotor&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        rightmotor = hardwareMap.dcMotor.get(</span><span class="s3">&quot;rightmotor&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+ 
+        rightmotor.setDirection(DcMotor.Direction.REVERSE)</span><span class="s0">;</span><span class="s1"> 
+ 
+        rightmotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER)</span><span class="s0">;</span><span class="s1"> 
+ 
+ 
+        waitForStart()</span><span class="s0">;</span><span class="s1"> 
+        runtime.reset()</span><span class="s0">;</span><span class="s1"> 
+ 
+ 
+        leftmotor.setPower(</span><span class="s5">0.25</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        rightmotor.setPower(</span><span class="s5">0.25</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+ 
+        </span><span class="s0">while </span><span class="s1">(rightmotor.getCurrentPosition() &lt; </span><span class="s5">4500</span><span class="s1">) { 
+            telemetry.addData(</span><span class="s3">&quot;Encoder&quot;</span><span class="s0">, </span><span class="s1">rightmotor.getCurrentPosition())</span><span class="s0">;</span><span class="s1"> 
+            waitOneFullHardwareCycle()</span><span class="s0">;</span><span class="s1"> 
+        } 
+ 
+        leftmotor.setPower(</span><span class="s5">0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        rightmotor.setPower(</span><span class="s5">0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        encReset()</span><span class="s0">;</span><span class="s1"> 
+ 
+        leftmotor.setPower(</span><span class="s5">0.20</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        rightmotor.setPower(-</span><span class="s5">0.25</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+ 
+        </span><span class="s0">while </span><span class="s1">(Math.abs(rightmotor.getCurrentPosition()) &lt; </span><span class="s5">580</span><span class="s1">) { 
+            telemetry.addData(</span><span class="s3">&quot;Encoder: &quot;</span><span class="s0">, </span><span class="s1">rightmotor.getCurrentPosition())</span><span class="s0">;</span><span class="s1"> 
+            waitOneFullHardwareCycle()</span><span class="s0">;</span><span class="s1"> 
+        } 
+        leftmotor.setPower(</span><span class="s5">0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        rightmotor.setPower(</span><span class="s5">0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        encReset()</span><span class="s0">;</span><span class="s1"> 
+ 
+        } 
+    }</span></pre>
+</body>
+</html>
